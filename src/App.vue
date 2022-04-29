@@ -1,26 +1,37 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <pagesHeader @changePage="page => this.page = page" />
+
+  <div class="">
+    <div class="">
+        <!-- onglet des sorts -->
+        <pagesSpell v-if="page == 'searchSpell'" :spells="spells" />
+
+        <!-- onglet des stats -->
+        <pagesStats v-if="page === 'statistics'" :spells="spells" />
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// Page necessaire au projet (Data, vue, CSS)
+import pagesStats from './components/pages/pagesStats.vue';
+import pagesHeader from './components/parts/Header.vue';
+import pagesSpell from './components/pages/pagesSpell.vue';
+import Data from './assets/data.min.js';
+import './assets/style.css';
 
 export default {
   name: 'App',
+  data: function() {
+    return {
+      spells: Data, // Variable "spells" qui représente les données de data.min.js
+      page: "searchSpell"
+    };
+  },
   components: {
-    HelloWorld
+    pagesHeader,
+    pagesSpell,
+    pagesStats
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
